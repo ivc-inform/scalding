@@ -15,10 +15,10 @@ def scalaBinaryVersion(scalaVersion: String) = scalaVersion match {
   case _ => sys.error("unknown error")
 }
 
-val algebirdVersion = "0.13.0"
-val apacheCommonsVersion = "2.2"
-val avroVersion = "1.7.4"
-val bijectionVersion = "0.9.5"
+val algebirdVersion = "0.13.3"
+val apacheCommonsVersion = "2.6"
+val avroVersion = "1.8.2"
+val bijectionVersion = "0.9.6"
 val cascadingAvroVersion = "2.1.2"
 val chillVersion = "0.8.4"
 val dagonVersion = "0.2.2"
