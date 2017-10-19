@@ -60,11 +60,11 @@ val sharedSettings = assemblySettings ++ scalariformSettings ++ Seq(
     Wart.Return, Wart.EitherProjectionPartial),
 
   libraryDependencies ++= Seq(
-    "org.mockito" % "mockito-all" % "1.8.5" % "test",
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion % "test",
-    "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
-    "org.slf4j" % "slf4j-log4j12" % slf4jVersion % "test",
-    "com.novocode" % "junit-interface" % "0.10" % "test"
+    "org.mockito" % "mockito-all" % "1.8.5" % Test,
+    "org.scalacheck" %% "scalacheck" % scalaCheckVersion % Test,
+    "org.scalatest" %% "scalatest" % scalaTestVersion % Test,
+    "org.slf4j" % "slf4j-log4j12" % slf4jVersion % Test,
+    "com.novocode" % "junit-interface" % "0.10" % Test
   ),
 
   resolvers ++= Seq(
@@ -303,8 +303,8 @@ lazy val cascadingJDBCVersion =
 lazy val scaldingBenchmarks = module("benchmarks")
   .settings(
     libraryDependencies ++= Seq(
-        "com.storm-enroute" %% "scalameter" % scalameterVersion % "test",
-        "org.scalacheck" %% "scalacheck" % scalaCheckVersion % "test"
+        "com.storm-enroute" %% "scalameter" % scalameterVersion % Test,
+        "org.scalacheck" %% "scalacheck" % scalaCheckVersion % Test
       ),
     testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework"),
     parallelExecution in Test := false
@@ -320,7 +320,7 @@ lazy val scaldingCore = module("core").settings(
     "com.twitter" % "chill-java" % chillVersion,
     "com.twitter" %% "chill-bijection" % chillVersion,
     "com.twitter" %% "algebird-core" % algebirdVersion,
-    "com.twitter" %% "algebird-test" % algebirdVersion % "test",
+    "com.twitter" %% "algebird-test" % algebirdVersion % Test,
     "com.twitter" %% "bijection-core" % bijectionVersion,
     "com.twitter" %% "bijection-macros" % bijectionVersion,
     "com.twitter" %% "chill" % chillVersion,
@@ -351,9 +351,9 @@ lazy val scaldingCommons = module("commons").settings(
       exclude("com.google.guava", "guava"),
     "org.slf4j" % "slf4j-api" % slf4jVersion,
     "org.slf4j" % "slf4j-log4j12" % slf4jVersion % "provided",
-    "junit" % "junit" % junitVersion % "test"
+    "junit" % "junit" % junitVersion % Test
   )
-).dependsOn(scaldingArgs, scaldingDate, scaldingCore, scaldingHadoopTest % "test")
+).dependsOn(scaldingArgs, scaldingDate, scaldingCore, scaldingHadoopTest % Test)
 
 lazy val scaldingAvro = module("avro").settings(
   libraryDependencies ++= Seq(
@@ -392,11 +392,11 @@ lazy val scaldingParquet = module("parquet").settings(
     "org.scala-lang" % "scala-reflect" % scalaVersion.value,
     "com.twitter" %% "bijection-macros" % bijectionVersion,
     "com.twitter" %% "chill-bijection" % chillVersion,
-    "com.twitter.elephantbird" % "elephant-bird-core" % elephantbirdVersion % "test",
+    "com.twitter.elephantbird" % "elephant-bird-core" % elephantbirdVersion % Test,
     "org.typelevel" %% "macro-compat" % macroCompatVersion
     ),
   addCompilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.full))
-  .dependsOn(scaldingCore, scaldingHadoopTest % "test", scaldingParquetFixtures % "test->test")
+  .dependsOn(scaldingCore, scaldingHadoopTest % Test, scaldingParquetFixtures % "test->test")
 
 
 
@@ -417,15 +417,15 @@ lazy val scaldingParquetScrooge = module("parquet-scrooge")
     libraryDependencies ++= Seq(
       "org.slf4j" % "slf4j-api" % slf4jVersion,
       // see https://issues.apache.org/jira/browse/PARQUET-143 for exclusions
-      "org.apache.parquet" % "parquet-thrift" % parquetVersion % "test" classifier "tests"
+      "org.apache.parquet" % "parquet-thrift" % parquetVersion % Test classifier "tests"
         exclude("org.apache.parquet", "parquet-pig")
         exclude("com.twitter.elephantbird", "elephant-bird-pig")
         exclude("com.twitter.elephantbird", "elephant-bird-core"),
       "com.twitter" %% "scrooge-serializer" % scroogeVersion
         exclude("com.google.guava", "guava"),
       "org.apache.hadoop" % "hadoop-client" % hadoopVersion % "provided",
-      "com.novocode" % "junit-interface" % "0.11" % "test",
-      "junit" % "junit" % junitVersion % "test"
+      "com.novocode" % "junit-interface" % "0.11" % Test,
+      "junit" % "junit" % junitVersion % Test
 
     )
 ).dependsOn(scaldingCore, scaldingParquet % "compile->compile;test->test", scaldingParquetScroogeFixtures % "test->test")
@@ -546,7 +546,7 @@ lazy val scaldingEstimatorsTest = module("estimators-test").settings(
     "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
     "org.scalatest" %% "scalatest" % scalaTestVersion
   )
-).dependsOn(scaldingHadoopTest % "test")
+).dependsOn(scaldingHadoopTest % Test)
 
 // This one uses a different naming convention
 lazy val maple = Project(
@@ -607,16 +607,16 @@ lazy val scaldingThriftMacros = module("thrift-macros")
   libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % scalaVersion.value,
     "com.twitter" %% "bijection-macros" % bijectionVersion,
-    "com.twitter" % "chill-thrift" % chillVersion % "test",
+    "com.twitter" % "chill-thrift" % chillVersion % Test,
     "com.twitter" %% "scrooge-serializer" % scroogeVersion % "provided"
       exclude("com.google.guava", "guava"),
     "org.apache.thrift" % "libthrift" % thriftVersion,
-    "org.apache.hadoop" % "hadoop-client" % hadoopVersion % "test",
-    "org.apache.hadoop" % "hadoop-minicluster" % hadoopVersion % "test",
-    "org.apache.hadoop" % "hadoop-client" % hadoopVersion % "test",
-    "org.apache.hadoop" % "hadoop-minicluster" % hadoopVersion  % "test",
+    "org.apache.hadoop" % "hadoop-client" % hadoopVersion % Test,
+    "org.apache.hadoop" % "hadoop-minicluster" % hadoopVersion % Test,
+    "org.apache.hadoop" % "hadoop-client" % hadoopVersion % Test,
+    "org.apache.hadoop" % "hadoop-minicluster" % hadoopVersion  % Test,
     "org.apache.hadoop" % "hadoop-yarn-server-tests" % hadoopVersion classifier "tests",
-    "org.apache.hadoop" % "hadoop-yarn-server" % hadoopVersion % "test",
+    "org.apache.hadoop" % "hadoop-yarn-server" % hadoopVersion % Test,
     "org.apache.hadoop" % "hadoop-hdfs" % hadoopVersion classifier "tests",
     "org.apache.hadoop" % "hadoop-common" % hadoopVersion classifier "tests",
     "org.apache.hadoop" % "hadoop-mapreduce-client-jobclient" % hadoopVersion classifier "tests"
@@ -624,7 +624,7 @@ lazy val scaldingThriftMacros = module("thrift-macros")
   addCompilerPlugin("org.scalamacros" % "paradise" % paradiseVersion cross CrossVersion.full)
 ).dependsOn(
     scaldingCore,
-    scaldingHadoopTest % "test",
+    scaldingHadoopTest % Test,
     scaldingSerialization,
     scaldingThriftMacrosFixtures % "test->test")
 
