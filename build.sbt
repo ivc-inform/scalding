@@ -171,39 +171,7 @@ val sharedSettings = assemblySettings ++ scalariformSettings ++ Seq(
     case s if s.endsWith("libjansi.so") => MergeStrategy.rename
     case s if s.endsWith("properties") => MergeStrategy.filterDistinctLines
     case x => (mergeStrategy in assembly).value(x)
-  },
-
-  pomExtra := (
-    <url>https://github.com/twitter/scalding</url>
-      <licenses>
-        <license>
-          <name>Apache 2</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-          <distribution>repo</distribution>
-          <comments>A business-friendly OSS license</comments>
-        </license>
-      </licenses>
-      <scm>
-        <url>git@github.com:twitter/scalding.git</url>
-        <connection>scm:git:git@github.com:twitter/scalding.git</connection>
-      </scm>
-      <developers>
-        <developer>
-          <id>posco</id>
-          <name>Oscar Boykin</name>
-          <url>http://twitter.com/posco</url>
-        </developer>
-        <developer>
-          <id>avibryant</id>
-          <name>Avi Bryant</name>
-          <url>http://twitter.com/avibryant</url>
-        </developer>
-        <developer>
-          <id>argyris</id>
-          <name>Argyris Zymnis</name>
-          <url>http://twitter.com/argyris</url>
-        </developer>
-      </developers>)
+  }
 ) ++ mimaDefaultSettings
 
 lazy val scalding = Project(
