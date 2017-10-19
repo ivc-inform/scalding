@@ -298,7 +298,7 @@ lazy val cascadingVersion =
   System.getenv.asScala.getOrElse("SCALDING_CASCADING_VERSION", "2.6.1")
 
 lazy val cascadingJDBCVersion =
-  System.getenv.asScala.getOrElse("SCALDING_CASCADING_JDBC_VERSION", "2.6.0")
+  System.getenv.asScala.getOrElse("SCALDING_CASCADING_JDBC_VERSION", "3.0.0")
 
 lazy val scaldingBenchmarks = module("benchmarks")
   .settings(
